@@ -1,0 +1,32 @@
+services:
+  backend:
+    build:
+      context: ./ARTHROMED/backend
+      dockerfile: Dockerfile
+    container_name: arthromed-backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+    networks:
+      - arthromed-network
+
+  frontend:
+    build:
+      context: ./ARTHROMED/frontend
+      dockerfile: Dockerfile
+    container_name: arthromed-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - arthromed-network
+
+networks:
+  arthromed-network:
+    driver: bridge

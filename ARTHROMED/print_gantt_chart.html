@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArthroMed - Project Gantt Chart (Print Edition)</title>
+  <style>
+    @page {
+      size: A4 landscape;
+      margin: 12mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #000;
+    }
+    body {
+      background: #fff;
+      padding: 20px;
+    }
+    .no-print {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .btn-print {
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn-print:hover {
+      background: #333;
+    }
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        padding: 0;
+      }
+    }
+    .chart-container {
+      border: 2px solid #000;
+      padding: 24px;
+      background: #fff;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #000;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      font-size: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .header .meta {
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .gantt-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 13px;
+    }
+    .gantt-table th, .gantt-table td {
+      border: 1px solid #000;
+      padding: 8px 10px;
+      text-align: center;
+    }
+    .gantt-table th {
+      background-color: #f0f0f0;
+      font-weight: bold;
+      font-size: 13px;
+    }
+    .gantt-table td.task-name {
+      text-align: left;
+      font-weight: 600;
+      width: 32%;
+    }
+    .bar {
+      display: block;
+      height: 18px;
+      background-color: #000;
+      border-radius: 3px;
+      margin: auto;
+      width: 90%;
+    }
+    .bar-partial {
+      width: 60%;
+    }
+    .milestone-marker {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      background-color: #000;
+      transform: rotate(45deg);
+      margin: auto;
+    }
+    .legend {
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      border-top: 1px solid #000;
+      padding-top: 10px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-box {
+      width: 20px;
+      height: 12px;
+      background: #000;
+      display: inline-block;
+    }
+    .legend-diamond {
+      width: 10px;
+      height: 10px;
+      background: #000;
+      transform: rotate(45deg);
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="no-print">
+    <button class="btn-print" onclick="window.print()">🖨️ Print Gantt Chart (Ctrl + P)</button>
+    <span style="font-size: 14px; color: #555;">Black & White print-ready version for Mini Project submission</span>
+  </div>
+
+  <div class="chart-container">
+    <div class="header">
+      <h1>ARTHROMED MINI PROJECT — GANTT CHART</h1>
+      <div class="meta">
+        Student: <strong>Abhishek Dinesh Singh</strong> &nbsp;|&nbsp; 
+        Roll No: <strong>T118</strong> &nbsp;|&nbsp; 
+        Academic Schedule: <strong>August 2026 – September 2026</strong>
+      </div>
+    </div>
+
+    <table class="gantt-table">
+      <thead>
+        <tr>
+          <th rowspan="2" style="width: 34%;">Project Tasks & Work Done Between Dates</th>
+          <th colspan="2">Sprint 1 (Aug 08 – Aug 18)</th>
+          <th colspan="2">Sprint 2 (Aug 19 – Aug 25)</th>
+          <th colspan="2">Sprint 3 (Aug 26 – Sep 01)</th>
+          <th colspan="2">Sprint 4 (Sep 02 – Sep 08)</th>
+        </tr>
+        <tr>
+          <th style="font-size: 11px;">Aug 08-11</th>
+          <th style="font-size: 11px;">Aug 12-18</th>
+          <th style="font-size: 11px;">Aug 19-21</th>
+          <th style="font-size: 11px;">Aug 22-25</th>
+          <th style="font-size: 11px;">Aug 26-28</th>
+          <th style="font-size: 11px;">Aug 29-01</th>
+          <th style="font-size: 11px;">Sep 02-05</th>
+          <th style="font-size: 11px;">Sep 06-08</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Phase 1 -->
+        <tr>
+          <td class="task-name">1. Synopsis & Requirements Analysis</td>
+          <td><span class="bar"></span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="task-name" style="padding-left: 20px; font-weight: normal;">◆ <em>Meeting 1: Project Synopsis Approved (11/08)</em></td>
+          <td><span class="milestone-marker"></span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        <!-- Phase 2 -->
+        <tr>
+          <td class="task-name">2. Angular GUI Layout & Component Prototyping</td>
+          <td></td>
+          <td><span class="bar"></span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="task-name" style="padding-left: 20px; font-weight: normal;">◆ <em>Meeting 2: Working GUI Demo & Corrections (18/08)</em></td>
+          <td></td>
+          <td><span class="milestone-marker"></span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        <!-- Phase 3 -->
+        <tr>
+          <td class="task-name">3. UML Architectural Modeling (Class, Use Case, Flow)</td>
+          <td></td>
+          <td></td>
+          <td><span class="bar"></span></td>
+          <td><span class="bar bar-partial"></span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="task-name">4. Responsive Footer & Contact Pills Implementation</td>
+          <td></td>
+          <td></td>
+          <td><span class="bar bar-partial"></span></td>
+          <td><span class="bar"></span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="task-name" style="padding-left: 20px; font-weight: normal;">◆ <em>Meeting 3: Diagrams & Footer Verified (25/08)</em></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="milestone-marker"></span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        <!-- Phase 4 -->
+        <tr>
+          <td class="task-name">5. Catalog Search Bar & Category Filters</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="bar"></span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="task-name">6. Company Description & Clinical Mission Section</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="bar"></span></td>
+          <td><span class="bar bar-partial"></span></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="task-name">7. WhatsApp Message Query Hotline (+91 8604351930)</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="bar bar-partial"></span></td>
+          <td><span class="bar"></span></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="task-name">8. Patient/Admin Auth & 10-Min Lockout Security</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="bar"></span></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="task-name" style="padding-left: 20px; font-weight: normal;">◆ <em>Meeting 4: Search, Footer, Query Completed (01/09)</em></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="milestone-marker"></span></td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        <!-- Phase 5 -->
+        <tr>
+          <td class="task-name">9. System Testing, Error Checking & Bug Fixes</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="bar"></span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="task-name">10. Print-Ready Source Code Documentation</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="bar bar-partial"></span></td>
+          <td><span class="bar"></span></td>
+        </tr>
+        <tr>
+          <td class="task-name" style="padding-left: 20px; font-weight: normal;">◆ <em>Final Submission & Project Viva (08/09)</em></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="milestone-marker"></span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="legend">
+      <div class="legend-item">
+        <span class="legend-box"></span>
+        <span>Scheduled Execution Duration</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-diamond"></span>
+        <span>Formal Meeting / Guide Sign-off Milestone</span>
+      </div>
+      <div class="legend-item">
+        <span>Project: ArthroMed Orthopedic Care System</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
