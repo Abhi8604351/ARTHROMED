@@ -11,12 +11,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:4200';
 
-// CORS configuration to allow Angular frontend
+// CORS configuration to allow Angular frontend (Local, Render, Vercel, or custom domain)
 app.use(
   cors({
-    origin: [FRONTEND_URL, 'http://localhost:4200', 'http://127.0.0.1:4200'],
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl) or any web origin
+      callback(null, true);
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-device-id'],
+    credentials: true,
   })
 );
 
