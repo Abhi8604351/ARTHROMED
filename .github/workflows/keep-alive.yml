@@ -1,0 +1,22 @@
+name: Render Backend 24/7 Keep-Alive
+
+on:
+  schedule:
+    # Runs automatically every 12 minutes to keep backend awake
+    - cron: '*/12 * * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping ArthroMed API Health Endpoint
+        run: |
+          echo "Pinging live Render backend to prevent sleep..."
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://arthromed.onrender.com/api/health)
+          echo "Response code: $HTTP_STATUS"
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "✅ Backend is healthy and awake!"
+          else
+            echo "⚠️ Backend returned $HTTP_STATUS or is waking up."
+          fi
