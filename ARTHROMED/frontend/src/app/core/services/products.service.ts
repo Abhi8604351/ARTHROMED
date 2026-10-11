@@ -210,7 +210,9 @@ export const LOCAL_MOCK_PRODUCTS: Product[] = [
   providedIn: 'root'
 })
 export class ProductsService {
-  private readonly apiUrl = 'http://localhost:3000/api';
+  private readonly apiUrl = typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1'
+    ? 'https://arthromed.onrender.com/api'
+    : 'http://localhost:3000/api';
   private localStore: Product[] = [...LOCAL_MOCK_PRODUCTS];
 
   // Angular Signals for reactive UI state

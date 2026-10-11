@@ -10,7 +10,9 @@ const USER_KEY = 'arthromed_auth_user';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly apiUrl = 'http://localhost:3000/api/auth';
+  private readonly apiUrl = typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1'
+    ? 'https://arthromed.onrender.com/api/auth'
+    : 'http://localhost:3000/api/auth';
 
   // Reactive state using Angular Signals
   readonly currentUser = signal<User | null>(null);
