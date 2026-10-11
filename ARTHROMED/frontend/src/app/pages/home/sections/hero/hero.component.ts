@@ -380,6 +380,10 @@ import { AuthService } from '../../../../core/services/auth.service';
       background-color: #ffffff;
       padding: 3.5rem 0 4rem;
       position: relative;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      box-sizing: border-box;
     }
 
     /* Two Column Main Hero Layout */
@@ -422,6 +426,7 @@ import { AuthService } from '../../../../core/services/auth.service';
       line-height: 1.05;
       letter-spacing: -0.035em;
       margin-bottom: 1.5rem;
+      word-break: break-word;
     }
 
     @media (max-width: 1200px) {
@@ -432,7 +437,13 @@ import { AuthService } from '../../../../core/services/auth.service';
 
     @media (max-width: 640px) {
       .hero-title {
-        font-size: 2.75rem;
+        font-size: 2.65rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2.2rem;
       }
     }
 
@@ -807,10 +818,9 @@ import { AuthService } from '../../../../core/services/auth.service';
     /* Modal Backdrop & Shared Styles */
     .modal-backdrop {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(15, 23, 42, 0.65);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
@@ -820,6 +830,7 @@ import { AuthService } from '../../../../core/services/auth.service';
       justify-content: center;
       padding: 1.5rem;
       overflow-y: auto;
+      box-sizing: border-box;
     }
 
     .modal-dialog {

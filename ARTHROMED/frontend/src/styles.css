@@ -58,30 +58,15 @@
 
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 html, body {
   min-height: 100%;
-}
-
-/* Ensure custom Angular app-navbar is permanently sticky at top: 0 so the menu bar never hides */
-app-navbar {
-  display: block;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
   width: 100%;
-  background: #ffffff;
-}
-
-app-footer {
-  display: block;
-  width: 100%;
-}
-
-/* Offset for in-page anchors so headings are never concealed by the sticky menu bar */
-[id] {
-  scroll-margin-top: 86px;
+  max-width: 100%;
 }
 
 body {
@@ -91,6 +76,31 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Ensure custom Angular app-navbar is permanently sticky at top: 0 so the menu bar never hides */
+app-navbar {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  max-width: 100%;
+  background: #ffffff;
+}
+
+app-footer {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Offset for in-page anchors so headings are never concealed by the sticky menu bar */
+[id] {
+  scroll-margin-top: 86px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -127,6 +137,21 @@ img {
   margin-right: auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
 }
 
 /* Standard Buttons */

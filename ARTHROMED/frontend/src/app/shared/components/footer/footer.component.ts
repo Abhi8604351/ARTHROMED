@@ -85,6 +85,8 @@ import { ProductsService } from '../../../core/services/products.service';
     :host {
       display: block;
       width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     .footer {
@@ -92,6 +94,10 @@ import { ProductsService } from '../../../core/services/products.service';
       color: #94a3b8;
       padding-top: 4.5rem;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-x: hidden;
     }
 
     .footer-content {
@@ -219,6 +225,10 @@ import { ProductsService } from '../../../core/services/products.service';
       background-color: #071914;
       padding: 1.75rem 0;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-x: hidden;
     }
 
     .disclaimer-inner {

@@ -90,6 +90,9 @@ import { AuthService } from '../../../core/services/auth.service';
       top: 0;
       z-index: 1000;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .topbar-inner {
@@ -97,28 +100,48 @@ import { AuthService } from '../../../core/services/auth.service';
       align-items: center;
       justify-content: space-between;
       height: 74px;
-      gap: 1.5rem;
+      gap: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      .topbar-inner {
+        height: 60px;
+        gap: 0.5rem;
+      }
     }
 
     .brand-group {
       display: flex;
       align-items: center;
+      flex-shrink: 0;
     }
 
     .admin-brand-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.85rem;
+      gap: 0.75rem;
       text-decoration: none;
+      flex-shrink: 0;
     }
 
     .brand-logo-img {
-      height: 44px;
-      max-height: 48px;
+      height: 42px;
+      max-height: 46px;
       width: auto;
       object-fit: contain;
       display: block;
+      flex-shrink: 0;
       transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (max-width: 768px) {
+      .brand-logo-img {
+        height: 34px;
+        max-height: 36px;
+        max-width: 125px;
+      }
     }
 
     .admin-brand-link:hover .brand-logo-img {
@@ -135,6 +158,13 @@ import { AuthService } from '../../../core/services/auth.service';
       border-radius: 9999px;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 640px) {
+      .admin-panel-badge {
+        display: none;
+      }
     }
 
     .admin-nav-links {

@@ -36,6 +36,9 @@ import { AdminNavbarComponent } from './shared/components/admin-navbar/admin-nav
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
     }
     app-navbar {
       display: block;
@@ -43,9 +46,13 @@ import { AdminNavbarComponent } from './shared/components/admin-navbar/admin-nav
       top: 0;
       z-index: 1000;
       width: 100%;
+      max-width: 100%;
     }
     .main-content {
       flex: 1 0 auto;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
     }
     .admin-isolated .main-content {
       display: flex;

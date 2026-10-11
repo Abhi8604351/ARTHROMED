@@ -140,6 +140,17 @@ import { AuthService } from '../../../core/services/auth.service';
       <!-- Mobile Navigation Drawer -->
       @if (isMobileMenuOpen()) {
         <div class="mobile-drawer">
+          @if (authService.isAuthenticated()) {
+            <div class="drawer-user-card">
+              <div class="drawer-avatar">
+                {{ authService.currentUser()?.fullName?.charAt(0) || 'U' }}
+              </div>
+              <div class="drawer-user-info">
+                <span class="drawer-user-name">{{ authService.currentUser()?.fullName }}</span>
+                <span class="drawer-user-role">{{ authService.isAdmin() ? 'Clinic Administrator' : 'Patient Account' }}</span>
+              </div>
+            </div>
+          }
           <ul class="mobile-nav-links">
             <li><a routerLink="/" (click)="closeMobileMenu()">Home</a></li>
             <li><a routerLink="/about" (click)="closeMobileMenu()">About Us</a></li>
@@ -148,11 +159,11 @@ import { AuthService } from '../../../core/services/auth.service';
             <li><a href="/#about-section" (click)="scrollToSection('about-section', $event)">Mission</a></li>
             @if (authService.isAuthenticated()) {
               @if (authService.isAdmin()) {
-                <li><a routerLink="/admin/products" (click)="closeMobileMenu()" style="color: #0d9488;">Control Panel &rarr;</a></li>
+                <li><a routerLink="/admin/products" (click)="closeMobileMenu()" class="drawer-admin-link">Control Panel &rarr;</a></li>
               }
-              <li><a href="javascript:void(0)" (click)="onLogout(); closeMobileMenu()" style="color: #ef4444;">Sign Out ({{ authService.currentUser()?.fullName }})</a></li>
+              <li><a href="javascript:void(0)" (click)="onLogout(); closeMobileMenu()" class="drawer-logout-link">Sign Out ({{ authService.currentUser()?.fullName?.split(' ')?.at(0) || 'User' }})</a></li>
             } @else {
-              <li><a routerLink="/login" (click)="closeMobileMenu()">Connect with Us</a></li>
+              <li><a routerLink="/login" (click)="closeMobileMenu()" class="drawer-login-link">Connect with Us / Log In &rarr;</a></li>
             }
           </ul>
           <div class="mobile-actions">
@@ -171,6 +182,7 @@ import { AuthService } from '../../../core/services/auth.service';
       top: 0;
       z-index: 1000;
       width: 100%;
+      max-width: 100%;
     }
 
     .header {
@@ -181,13 +193,26 @@ import { AuthService } from '../../../core/services/auth.service';
       z-index: 1000;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
       transition: all 0.25s ease;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .navbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 76px;
+      height: 74px;
+      gap: 0.75rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        height: 62px;
+        gap: 0.4rem;
+      }
     }
 
     /* Brand Logo */
@@ -197,19 +222,41 @@ import { AuthService } from '../../../core/services/auth.service';
       text-decoration: none;
       height: 100%;
       padding: 0.35rem 0;
+      flex-shrink: 0;
+      min-width: 110px;
+      z-index: 2;
     }
 
     .brand-logo-img {
-      height: 50px;
-      max-height: 54px;
+      height: 46px;
+      max-height: 50px;
       width: auto;
       object-fit: contain;
       display: block;
       transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    @media (max-width: 768px) {
+      .brand-logo {
+        min-width: 95px;
+      }
+      .brand-logo-img {
+        height: 36px;
+        max-height: 38px;
+        max-width: 135px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .brand-logo-img {
+        height: 32px;
+        max-height: 34px;
+        max-width: 115px;
+      }
+    }
+
     .brand-logo:hover .brand-logo-img {
-      transform: scale(1.03);
+      transform: scale(1.02);
     }
 
     /* Desktop Navigation Links */
@@ -262,7 +309,14 @@ import { AuthService } from '../../../core/services/auth.service';
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .header-actions {
+        gap: 0.35rem;
+      }
     }
 
     /* Search Button */
@@ -278,6 +332,14 @@ import { AuthService } from '../../../core/services/auth.service';
       border: none;
       cursor: pointer;
       transition: background-color 0.2s ease, color 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .btn-icon-search {
+        width: 34px;
+        height: 34px;
+      }
     }
 
     .btn-icon-search:hover {
@@ -285,17 +347,24 @@ import { AuthService } from '../../../core/services/auth.service';
       color: #0f172a;
     }
 
-    /* Log in Text Link */
+    /* Log in Text Link (Desktop only) */
     .nav-login-link {
       font-size: 0.94rem;
       font-weight: 600;
       color: #1e293b;
       text-decoration: none;
       transition: color 0.2s ease;
+      white-space: nowrap;
     }
 
     .nav-login-link:hover {
       color: #12382e;
+    }
+
+    @media (max-width: 768px) {
+      .nav-login-link {
+        display: none !important;
+      }
     }
 
     /* Primary Pill Button: "Get Started ->" */
@@ -312,6 +381,8 @@ import { AuthService } from '../../../core/services/auth.service';
       text-decoration: none;
       box-shadow: 0 4px 14px rgba(18, 56, 46, 0.22);
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .btn-get-started:hover {
@@ -325,11 +396,18 @@ import { AuthService } from '../../../core/services/auth.service';
       transform: translateY(0.5px);
     }
 
+    @media (max-width: 768px) {
+      .header-actions .btn-get-started {
+        display: none !important; /* Conceal on mobile topbar to avoid crowding; present inside mobile drawer */
+      }
+    }
+
     /* User Profile Controls */
     .user-profile-menu {
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      flex-shrink: 0;
     }
 
     .user-pill {
@@ -389,31 +467,62 @@ import { AuthService } from '../../../core/services/auth.service';
       background: #fca5a5;
     }
 
+    @media (max-width: 768px) {
+      .header-actions .btn-logout {
+        display: none !important; /* Moved to mobile drawer */
+      }
+      .user-pill {
+        padding: 0.22rem 0.55rem;
+        gap: 0.25rem;
+      }
+      .user-role-tag {
+        display: none;
+      }
+      .admin-chip-link {
+        display: none;
+      }
+      .user-name {
+        font-size: 0.76rem;
+        max-width: 65px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .user-profile-menu {
+        display: none !important;
+      }
+    }
+
     /* Search Overlay */
     .search-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(15, 23, 42, 0.4);
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.45);
       backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
       z-index: 2000;
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      padding-top: 100px;
+      padding: 80px 1rem 1rem;
+      box-sizing: border-box;
     }
 
     .search-box {
       background: #ffffff;
       border-radius: 16px;
-      width: 90%;
+      width: 100%;
       max-width: 580px;
-      padding: 1.5rem;
+      padding: 1.25rem;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
       border: 1px solid #e2e8f0;
       animation: fadeInDown 0.2s ease-out;
+      box-sizing: border-box;
     }
 
     @keyframes fadeInDown {
@@ -499,6 +608,10 @@ import { AuthService } from '../../../core/services/auth.service';
       background: transparent;
       border: none;
       cursor: pointer;
+      flex-shrink: 0;
+      width: 34px;
+      align-items: center;
+      justify-content: center;
     }
 
     @media (min-width: 992px) {
@@ -518,15 +631,60 @@ import { AuthService } from '../../../core/services/auth.service';
     .mobile-drawer {
       background: #ffffff;
       border-top: 1px solid #f1f5f9;
-      padding: 1.5rem;
+      padding: 1.25rem 1.5rem 1.75rem;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      animation: fadeInDown 0.2s ease-out;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .drawer-user-card {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      margin-bottom: 1.25rem;
+    }
+
+    .drawer-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #12382e;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    .drawer-user-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .drawer-user-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .drawer-user-role {
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 500;
     }
 
     .mobile-nav-links {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.85rem;
       margin: 0 0 1.5rem;
       padding: 0;
     }
@@ -536,6 +694,23 @@ import { AuthService } from '../../../core/services/auth.service';
       font-weight: 600;
       color: #1e293b;
       text-decoration: none;
+      display: block;
+      padding: 0.35rem 0;
+      transition: color 0.15s;
+    }
+
+    .mobile-nav-links a:hover {
+      color: #12382e;
+    }
+
+    .drawer-admin-link {
+      color: #0d9488 !important;
+      font-weight: 700 !important;
+    }
+
+    .drawer-logout-link {
+      color: #ef4444 !important;
+      font-weight: 600 !important;
     }
   `]
 })

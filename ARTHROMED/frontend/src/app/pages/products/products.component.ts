@@ -77,12 +77,24 @@ import { LoadingSkeletonComponent } from '../../shared/components/loading-skelet
   styles: [`
     .catalog-page {
       padding-bottom: 6rem;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
     }
     .catalog-header-banner {
       background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
       color: #ffffff;
       padding: 3.5rem 0 3.75rem;
       margin-bottom: 2.5rem;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    @media (max-width: 640px) {
+      .catalog-header-banner {
+        padding: 2.5rem 0 2.75rem;
+        margin-bottom: 1.75rem;
+      }
     }
     .breadcrumb {
       font-size: 0.825rem;
